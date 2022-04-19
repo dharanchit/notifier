@@ -1,12 +1,10 @@
 import express from 'express';
 import notificationHandlerController from './controller/notificationHandlerController';
 import publisherRouter from './routes/index';
-
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT;
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

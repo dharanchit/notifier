@@ -5,3 +5,10 @@ export interface UserInfo {
     phone: number;
     hasunsubscribed: boolean;
 };
+
+export interface MessageStructure {
+    medium: string;
+    email: string;
+    phone: string;
+    name: string;
+}

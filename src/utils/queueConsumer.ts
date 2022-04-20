@@ -1,4 +1,5 @@
 import amqp from 'amqplib';
+import notificationTriggerController from '../controller/notificationTriggerController';
 
 const notificationServices = ['whatsapp', 'sms', 'email'];
 
@@ -17,13 +18,17 @@ const queueConsumer = async() => {
         notificationServices.forEach(async(medium: string) => {
             await channel.bindQueue(q.queue, exchangeName, medium); 
         });
-        await channel.consume(q.queue, function(msg){
-            console.log('Recieved ', msg.fields.routingKey, msg.content.toString());
-            response = msg.content.toString();
+        await channel.consume(q.queue, async function(msg){
+            if(msg){
+                const notifcationTriggerResponse = await notificationTriggerController(msg);
+                if(notifcationTriggerResponse){
+                    // Acknowledge message once response is recieved
+                    channel.ack(msg);
+                }
+            }
         }, {
             noAck: true
         });
-        return response;
     } catch(err: any){
         console.error(err);
     }

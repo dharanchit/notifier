@@ -13,7 +13,10 @@ app.use(express.json());
 app.use("/publisher", publisherRouter);
 
 // Messaging Queue listener and publisher
-queueConsumer();
+setTimeout(() => {
+  // Hacky fix to create channels only after the rabbitmq is done loading 
+  queueConsumer();
+}, 20000);
 
 app.listen(port, () => {
   return console.log(`Express is listening at http://localhost:${port}`);

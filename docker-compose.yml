@@ -35,6 +35,10 @@ services:
       - POSTGRES_DB=postgres
     networks:
       - notification
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 networks:
   notification:
     driver: bridge
+volumes:
+  pgdata:

@@ -20,10 +20,10 @@ const queueConsumer = async() => {
         await channel.consume(q.queue, async function(msg){
             if(msg){
                 const notifcationTriggerResponse = await notificationTriggerController(msg);
-                if(notifcationTriggerResponse){
+                // if(notifcationTriggerResponse){
                     // Acknowledge message once response is recieved
-                    channel.ack(msg);
-                }
+                //     channel.ack(msg);
+                // }
             }
         }, {
             noAck: true

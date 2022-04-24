@@ -1,10 +1,16 @@
 import { MessageStructure } from "../../types";
-
+require('dotenv').config();
 const nodemailer = require("nodemailer");
 
 const triggerEmailNotification = async(message: string): Promise<string> => {
     try {
-        const testAccount = await nodemailer.createTestAccount();
+        const testAccount = await nodemailer.createTestAccount({
+            service: 'hotmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD,
+            }
+        });
 
         let transporter = nodemailer.createTransport({
             host: "smtp.ethereal.email",

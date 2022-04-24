@@ -5,8 +5,7 @@ const notificationServices = ['whatsapp', 'sms', 'email'];
 
 const queueConsumer = async() => {
     try {
-        let response = null;
-        const connect = await amqp.connect('amqp://localhost:5672');
+        const connect = await amqp.connect('amqp://guest:guest@rabbitmq:5672');
         const channel = await connect.createChannel();
         const exchangeName = 'notifications';
         await channel.assertExchange(exchangeName, 'direct', {
